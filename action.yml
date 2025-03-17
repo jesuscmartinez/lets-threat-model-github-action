@@ -1,0 +1,61 @@
+name: "Lets Threat Model"
+description: "Generate threat models from YAML configs using the lets-threat-model-core container"
+author: "Jesus C Martinez"
+branding:
+  icon: "shield"
+  color: "blue"
+
+inputs:
+  config:
+    description: "Path to your config.yaml file (must be checked out in the repo)"
+    required: true
+  output-markdown:
+    description: "Output path for the markdown report"
+    required: false
+    default: "threat_model_report.md"
+  output-json:
+    description: "Optional output path for the JSON report"
+    required: false
+    default: "threat_model_report.json"
+  github-username:
+    description: "GitHub username for authenticated operations"
+    required: false
+  github-pat:
+    description: "GitHub Personal Access Token (keep secret!)"
+    required: false
+  openai-api-key:
+    description: "OpenAI API Key (keep secret!)"
+    required: true
+  log-level:
+    description: "Log level for the process (DEBUG, INFO, etc.)"
+    required: false
+    default: "INFO"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run lets-threat-model-core container
+      shell: bash
+      run: |
+        echo "Generating threat model from: ${{ inputs.config }}"
+
+        WORKSPACE=${{ github.workspace }}
+
+        # Build optional JSON argument
+        EXTRA_ARGS=""
+        if [ -n "${{ inputs.output-json }}" ]; then
+          EXTRA_ARGS="--json-output /app/${{ inputs.output-json }}"
+        fi
+
+        # Run the container with environment variables passed in
+        docker run --rm \
+          -v "$WORKSPACE:/app" \
+          -e GITHUB_USERNAME="${{ inputs.github-username }}" \
+          -e GITHUB_PAT="${{ inputs.github-pat }}" \
+          -e OPENAI_API_KEY="${{ inputs.openai-api-key }}" \
+          -e LOG_LEVEL="${{ inputs.log-level }}" \
+          ghcr.io/jesuscmartinez/lets-threat-model-core:latest \
+          /app/${{ inputs.config }} \
+          -o /app/${{ inputs.output-markdown }} $EXTRA_ARGS
+
+        echo "✅ Threat model generation complete!"
