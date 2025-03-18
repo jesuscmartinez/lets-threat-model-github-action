@@ -19,15 +19,15 @@ This GitHub Action helps automate the process of generating Markdown and optiona
 
 ## 📂 Inputs
 
-| Name               | Description                                                    | Required | Default                   |
-|--------------------|----------------------------------------------------------------|----------|---------------------------|
-| `config`           | Path to your YAML config file (must be checked out in the repo). | ✅ Yes    |                           |
-| `output-markdown`  | Output path for the Markdown report.                           | ❌ No     | `threat_model_report.md`  |
-| `output-json`      | Output path for the JSON report.                               | ❌ No     | `threat_model_report.json`|
-| `github-username`  | GitHub username for authenticated operations.                  | ❌ No     |                           |
-| `github-pat`       | GitHub Personal Access Token (keep secret!).                   | ❌ No     |                           |
-| `openai-api-key`   | OpenAI API Key (keep secret!).                                 | ✅ Yes    |                           |
-| `log-level`        | Log level (`DEBUG`, `INFO`, etc.).                             | ❌ No     | `INFO`                   |
+| Name               | Description                                                    | Required | Default                     |
+|--------------------|----------------------------------------------------------------|----------|-----------------------------|
+| `config-file`      | Path to your YAML config file (must be checked out in the repo). | ✅ Yes  |                            |
+| `markdown-ouput`   | Output path for the Markdown report.                           | ❌ No     | `threat_model_report.md`   |
+| `json-output`      | Output path for the JSON report.                               | ❌ No     | `threat_model_report.json` |
+| `github-username`  | GitHub username for authenticated operations.                  | ❌ No     | `Required for remote repos`|
+| `github-pat`       | GitHub Personal Access Token (keep secret!).                   | ❌ No     | `Required for remote repos`|                          |
+| `openai-api-key`   | OpenAI API Key (keep secret!).                                 | ✅ Yes    |                            |
+| `log-level`        | Log level (`DEBUG`, `INFO`, etc.).                             | ❌ No     | `INFO`                     |
 
 ---
 
