@@ -30,7 +30,7 @@ jobs:
 
           repositories:
             - name: Repo One
-              url: https://github.com/jesuscmartinez/lets-threat-model-core
+              url: github.com/jesuscmartinez/lets-threat-model-core
 
           config:
             llm_provider: openai
