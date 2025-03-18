@@ -48,7 +48,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Generate Threat Model
-        uses: jesuscmartinez/lets-threat-model-core-action@v1
+        uses: jesuscmartinez/lets-threat-model-github-action@main
         with:
           config: config/my-config.yaml
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
