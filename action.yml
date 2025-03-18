@@ -49,6 +49,7 @@ runs:
 
         # Run the container with environment variables passed in
         docker run --rm \
+          -u $(id -u):$(id -g) \
           -v "$WORKSPACE:/data:rw" \
           -e GITHUB_USERNAME="${{ inputs.github-username }}" \
           -e GITHUB_PAT="${{ inputs.github-pat }}" \
