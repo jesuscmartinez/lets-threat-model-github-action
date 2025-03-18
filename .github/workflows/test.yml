@@ -38,13 +38,14 @@ jobs:
             review_agent_llm: gpt-4o-mini
             threat_model_agent_llm: gpt-4o-mini
             report_agent_llm: gpt-4o-mini
+            categorize_only: True
           EOF
 
       - name: Run Lets Threat Model Core Action (basic test)
         uses: ./
         with:
           config: config/test-config.yaml
-          openai-api-key: {{secrets.OPENAI_API_KEY}}
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           log-level: INFO
 
       - name: Verify the generated Markdown report exists
