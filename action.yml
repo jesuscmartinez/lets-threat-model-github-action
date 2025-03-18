@@ -49,7 +49,7 @@ runs:
 
         # Run the container with environment variables passed in
         docker run --rm \
-          -v "$WORKSPACE:/data" \
+          -v "$WORKSPACE:/data:rw" \
           -e GITHUB_USERNAME="${{ inputs.github-username }}" \
           -e GITHUB_PAT="${{ inputs.github-pat }}" \
           -e OPENAI_API_KEY="${{ inputs.openai-api-key }}" \
