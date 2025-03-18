@@ -55,7 +55,7 @@ runs:
           -e OPENAI_API_KEY="${{ inputs.openai-api-key }}" \
           -e LOG_LEVEL="${{ inputs.log-level }}" \
           ghcr.io/jesuscmartinez/lets-threat-model-core:latest \
-          /data/${{ inputs.config }} \
-          -markdown-output /data/${{ inputs.markdown-output }} $EXTRA_ARGS
+          --config-file /data/${{ inputs.config }} \
+          --markdown-output /data/${{ inputs.markdown-output }} $EXTRA_ARGS
 
         echo "✅ Threat model generation complete!"
