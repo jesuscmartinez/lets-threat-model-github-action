@@ -9,11 +9,11 @@ inputs:
   config:
     description: "Path to your config.yaml file (must be checked out in the repo)"
     required: true
-  output-markdown:
+  markdown-output:
     description: "Output path for the markdown report"
     required: false
     default: "threat_model_report.md"
-  output-json:
+  json-output:
     description: "Optional output path for the JSON report"
     required: false
     default: "threat_model_report.json"
@@ -43,19 +43,19 @@ runs:
 
         # Build optional JSON argument
         EXTRA_ARGS=""
-        if [ -n "${{ inputs.output-json }}" ]; then
-          EXTRA_ARGS="--json-output /app/${{ inputs.output-json }}"
+        if [ -n "${{ inputs.json-output }}" ]; then
+          EXTRA_ARGS="--json-output /data/${{ inputs.json-output }}"
         fi
 
         # Run the container with environment variables passed in
         docker run --rm \
-          -v "$WORKSPACE:/app" \
+          -v "$WORKSPACE:/data" \
           -e GITHUB_USERNAME="${{ inputs.github-username }}" \
           -e GITHUB_PAT="${{ inputs.github-pat }}" \
           -e OPENAI_API_KEY="${{ inputs.openai-api-key }}" \
           -e LOG_LEVEL="${{ inputs.log-level }}" \
           ghcr.io/jesuscmartinez/lets-threat-model-core:latest \
-          /app/${{ inputs.config }} \
-          -o /app/${{ inputs.output-markdown }} $EXTRA_ARGS
+          /data/${{ inputs.config }} \
+          -markdown-output /data/${{ inputs.markdown-output }} $EXTRA_ARGS
 
         echo "✅ Threat model generation complete!"
