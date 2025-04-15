@@ -12,7 +12,7 @@ This GitHub Action helps automate the process of generating Markdown and optiona
 
 - 📦 Runs the [`lets-threat-model-core`](https://github.com/jesuscmartinez/lets-threat-model-core) Docker container.
 - ✅ Generates **Markdown reports** of your threat models.
-- 📝 Optionally outputs **JSON** versions of your threat models.
+- 📝 Optionally outputs **JSON or SARIF** versions of your threat models.
 - 🔐 Securely integrates with GitHub and OpenAI using environment variables.
 
 ---
@@ -21,9 +21,10 @@ This GitHub Action helps automate the process of generating Markdown and optiona
 
 | Name               | Description                                                    | Required | Default                     |
 |--------------------|----------------------------------------------------------------|----------|-----------------------------|
-| `config-file`      | Path to your YAML config file (must be checked out in the repo). | ✅ Yes  |                            |
-| `markdown-ouput`   | Output path for the Markdown report.                           | ❌ No     | `threat_model_report.md`   |
+| `config`           | Path to your YAML config file (must be checked out in the repo). | ✅ Yes  |                            |
+| `markdown-output`  | Output path for the Markdown report.                           | ❌ No     | `threat_model_report.md`   |
 | `json-output`      | Output path for the JSON report.                               | ❌ No     | `threat_model_report.json` |
+| `sarif-output`     | Output path for the SARIF report.                              | ❌ No     | `threat_model_report.sarif`|
 | `github-username`  | GitHub username for authenticated operations. (Required for remote repos) | ❌ No     |                 |
 | `github-pat`       | GitHub Personal Access Token (keep secret!). (Required for remote repos)  | ❌ No     |                 |
 | `openai-api-key`   | OpenAI API Key (keep secret!).                                 | ✅ Yes    |                            |
@@ -52,3 +53,6 @@ jobs:
         with:
           config: config/my-config.yaml
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          markdown-output: threat_model_report.md
+          json-output: threat_model_report.json
+          sarif-output: threat_model_report.sarif
