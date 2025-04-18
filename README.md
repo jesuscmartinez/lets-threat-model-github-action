@@ -56,3 +56,11 @@ jobs:
           markdown-output: threat_model_report.md
           json-output: threat_model_report.json
           sarif-output: threat_model_report.sarif
+```
+
+### 📌 Demo Workflow Example
+
+A working demo is available in the [`lets-threat-model-demo`](https://github.com/jesuscmartinez/lets-threat-model-demo) repository.
+
+You can see it in action via the [GitHub Actions workflow](https://github.com/jesuscmartinez/lets-threat-model-demo/actions/workflows/lets_threat_model.yml):
+
