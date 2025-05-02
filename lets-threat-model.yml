@@ -1,0 +1,17 @@
+asset:
+  name: "Lets Threat Model Github Action"
+  description: "Automate the generation of threat models from YAML configurations using the lets-threat-model-core Docker container. This action produces Markdown and optional JSON reports, seamlessly integrating security assessments into your CI/CD pipeline."
+  internet_facing: true
+  authn_type: "NONE"
+  data_classification: "CONFIDENTIAL"
+
+repositories:
+  - name: "lets-threat-model-github-action"
+    local_path: /data
+
+config:
+  llm_provider: openai
+  categorization_agent_llm: gpt-4o-mini
+  review_agent_llm: o3-mini
+  threat_model_agent_llm: o3-mini
+  report_agent_llm: gpt-4o-mini
