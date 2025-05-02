@@ -29,7 +29,12 @@ inputs:
     required: false
   openai-api-key:
     description: "OpenAI API Key (keep secret!)"
-    required: true
+    required: false
+    default: ${{ secrets.OPENAI_API_KEY }}
+  anthropic-api-key:
+    description: "Anthropic API Key (keep secret!)"
+    required: false
+    default: ${{ secrets.ANTHROPIC_API_KEY }}
   log-level:
     description: "Log level for the process (DEBUG, INFO, etc.)"
     required: false
@@ -56,14 +61,26 @@ runs:
           EXTRA_ARGS="$EXTRA_ARGS --sarif-output /data/${{ inputs.sarif-output }}"
         fi
 
-        # Run the container with environment variables passed in
+        # Determine LLM environment variables
+        if [ -n "${{ inputs.anthropic-api-key }}" ]; then
+          echo "Using Anthropic API key"
+          LLM_ENV="-e ANTHROPIC_API_KEY=${{ inputs.anthropic-api-key }}"
+        elif [ -n "${{ inputs.openai-api-key }}" ]; then
+          echo "Using OpenAI API key"
+          LLM_ENV="-e OPENAI_API_KEY=${{ inputs.openai-api-key }}"
+        else
+          echo "❌ No API key provided. Set either openai-api-key or anthropic-api-key."
+          exit 1
+        fi
+
+        # Run the container with selected API key
         docker run --rm \
           -u $(id -u):$(id -g) \
           -v "$WORKSPACE:/data:rw" \
           -e GITHUB_USERNAME="${{ inputs.github-username }}" \
           -e GITHUB_PAT="${{ inputs.github-pat }}" \
-          -e OPENAI_API_KEY="${{ inputs.openai-api-key }}" \
           -e LOG_LEVEL="${{ inputs.log-level }}" \
+          $LLM_ENV \
           ghcr.io/jesuscmartinez/lets-threat-model-core:latest \
           --config-file /data/${{ inputs.config }} \
           --markdown-output /data/${{ inputs.markdown-output }} $EXTRA_ARGS
