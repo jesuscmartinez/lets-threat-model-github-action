@@ -1,0 +1,11 @@
+name: "Let's Threat Model"
+description: "Generate threat models from YAML configs using lets-threat-model-core."
+
+categories:
+  - security
+  - code-scanning
+
+icon: shield
+color: blue
+
+file: .github/workflows/lets-threat-model.yml
