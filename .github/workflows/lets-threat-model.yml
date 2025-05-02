@@ -1,4 +1,9 @@
-name: Generate Threat Model
+name: Lets Threat Model
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
 
 on:
   workflow_dispatch:
@@ -26,7 +31,7 @@ on:
       upload_to_code_scanning:
         description: "Upload SARIF report to GitHub code scanning"
         required: false
-        default: "true"
+        default: "false"
     
 jobs:
     generate-threat-model:
