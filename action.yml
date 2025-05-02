@@ -30,11 +30,9 @@ inputs:
   openai-api-key:
     description: "OpenAI API Key (keep secret!)"
     required: false
-    default: ${{ secrets.OPENAI_API_KEY }}
   anthropic-api-key:
     description: "Anthropic API Key (keep secret!)"
     required: false
-    default: ${{ secrets.ANTHROPIC_API_KEY }}
   log-level:
     description: "Log level for the process (DEBUG, INFO, etc.)"
     required: false
