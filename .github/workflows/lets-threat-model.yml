@@ -3,65 +3,21 @@ name: Generate Threat Model
 on:
   workflow_dispatch:
     inputs:
-      asset_name:
-        description: "Asset name"
+      config:
+        description: "Path to the config.yml file"
         required: true
-        default: "Lets Threat Model"
-      asset_description:
-        description: "Asset description"
-        required: true
-        default: "An open-source threat modeling tool"
-      internet_facing:
-        description: "Is the asset internet-facing?"
-        required: true
-        default: "false"
-      authn_type:
-        description: "Authentication type"
-        required: true
-        default: "Password"
-      data_classification:
-        description: "Data classification"
-        required: true
-        default: "CONFIDENTIAL"
-      repo_name:
-        description: "Repository name"
-        required: true
-        default: "Lets Threat Model"
-      repo_path:
-        description: "Local repository path"
-        required: true
-        default: "/data"
-      llm_provider:
-        description: "LLM Provider"
-        required: true
-        default: "openai"
-      categorization_agent_llm:
-        description: "Categorization agent LLM"
-        required: true
-        default: "gpt-4o-mini"
-      review_agent_llm:
-        description: "Review agent LLM"
-        required: true
-        default: "o3-mini"
-      threat_model_agent_llm:
-        description: "Threat model agent LLM"
-        required: true
-        default: "o3-mini"
-      report_agent_llm:
-        description: "Report agent LLM"
-        required: true
-        default: "gpt-4o-mini"
+        default: "lets-threat-model.yml"
       markdown_output:
         description: "Path to the Markdown report"
-        required: true
+        required: false
         default: "threat_model_report.md"
       json_output:
         description: "Path to the JSON report"
-        required: true
+        required: false
         default: "threat_model_report.json"
       sarif_output:
         description: "Path to the SARIF report"
-        required: true
+        required: false
         default: "threat_model_report.sarif"
       upload_artifacts:
         description: "Upload reports as artifacts"
@@ -85,71 +41,10 @@ jobs:
             - name: Checkout Repository
               uses: actions/checkout@v4
 
-            - name: Prepare test config file
-              env:
-                ASSET_NAME: ${{ github.event.inputs.asset_name }}
-                ASSET_DESCRIPTION: ${{ github.event.inputs.asset_description }}
-                INTERNET_FACING: ${{ github.event.inputs.internet_facing }}
-                AUTHN_TYPE: ${{ github.event.inputs.authn_type }}
-                DATA_CLASSIFICATION: ${{ github.event.inputs.data_classification }}
-                REPO_NAME: ${{ github.event.inputs.repo_name }}
-                REPO_PATH: ${{ github.event.inputs.repo_path }}
-                LLM_PROVIDER: ${{ github.event.inputs.llm_provider }}
-                CATEGORIZATION_AGENT_LLM: ${{ github.event.inputs.categorization_agent_llm }}
-                REVIEW_AGENT_LLM: ${{ github.event.inputs.review_agent_llm }}
-                THREAT_MODEL_AGENT_LLM: ${{ github.event.inputs.threat_model_agent_llm }}
-                REPORT_AGENT_LLM: ${{ github.event.inputs.report_agent_llm }}
-              run: |
-                mkdir -p config
-                cat <<EOF > config/config.yaml
-                asset:
-                  name: "${ASSET_NAME}"
-                  description: "${ASSET_DESCRIPTION}"
-                  internet_facing: ${INTERNET_FACING}
-                  authn_type: "${AUTHN_TYPE}"
-                  data_classification: "${DATA_CLASSIFICATION}"
-
-                repositories:
-                  name: "${REPO_NAME}"
-                  local_path: "${REPO_PATH}"
-
-                config:
-                  llm_provider: ${LLM_PROVIDER}
-                  categorization_agent_llm: ${CATEGORIZATION_AGENT_LLM}
-                  review_agent_llm: ${REVIEW_AGENT_LLM}
-                  threat_model_agent_llm: ${THREAT_MODEL_AGENT_LLM}
-                  report_agent_llm: ${REPORT_AGENT_LLM}
-                EOF
-
-            - name: Validate LLM API Key
-              env:
-                PROVIDER: ${{ github.event.inputs.llm_provider }}
-                OPENAI_KEY: ${{ secrets.OPENAI_API_KEY }}
-                ANTHROPIC_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-              run: |
-                if [ "$PROVIDER" = "openai" ]; then
-                  if [ -z "$OPENAI_KEY" ]; then
-                    echo "❌ Missing OPENAI_API_KEY. Please add it as a secret input."
-                    exit 1
-                  else
-                    echo "✅ OpenAI API key found."
-                  fi
-                elif [ "$PROVIDER" = "anthropic" ]; then
-                  if [ -z "$ANTHROPIC_KEY" ]; then
-                    echo "❌ Missing ANTHROPIC_API_KEY. Please add it as a secret input."
-                    exit 1
-                  else
-                    echo "✅ Anthropic API key found."
-                  fi
-                else
-                  echo "⚠️ Unknown or unsupported provider: $PROVIDER"
-                  exit 1
-                fi
-
             - name: Generate Threat Model
               uses: jesuscmartinez/lets-threat-model-github-action@v1.0.2
               with:
-                config: config/config.yaml
+                config: ${{ github.event.inputs.config }}
                 openai-api-key: ${{ secrets.OPENAI_API_KEY }}
                 anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
                 markdown-output: ${{ env.MARKDOWN_OUTPUT }}
