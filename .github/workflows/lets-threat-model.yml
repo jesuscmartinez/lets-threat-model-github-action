@@ -11,7 +11,7 @@ on:
       config:
         description: "Path to the config.yml file"
         required: true
-        default: "lets-threat-model.yml"
+        default: "config.yml"
       markdown_output:
         description: "Path to the Markdown report"
         required: false
