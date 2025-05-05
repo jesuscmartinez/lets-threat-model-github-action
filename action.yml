@@ -1,5 +1,5 @@
 name: "Lets Threat Model"
-description: "AI-driven threat modeling that outputs Markdown, JSON, and SARIF for seamless CI/CD and GitHub Code Scanning."
+description: "Agentic AI threat modeling that outputs Markdown, JSON, and SARIF for seamless CI/CD and GitHub Code Scanning."
 author: "Jesus Martinez"
 branding:
   icon: "shield"
