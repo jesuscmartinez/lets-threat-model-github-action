@@ -3,7 +3,7 @@
 <!-- [![GitHub Marketplace](https://img.shields.io/badge/GitHub-Marketplace-blue?logo=github)](https://github.com/jesuscmartinez/lets-threat-model-core-action)
 [![License](https://img.shields.io/github/license/jesuscmartinez/lets-threat-model-demo)](LICENSE) -->
 
-AI-driven threat modeling using the lets-threat-model-core Docker container. This action produces Markdown, optional JSON, and SARIF reports—seamlessly integrating security assessments into your CI/CD pipeline and supporting GitHub Code Scanning.
+Agentic AI threat modeling using the lets-threat-model-core Docker container. This action produces Markdown, optional JSON, and SARIF reports—seamlessly integrating security assessments into your CI/CD pipeline and supporting GitHub Code Scanning.
 
 ---
 
