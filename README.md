@@ -3,8 +3,7 @@
 <!-- [![GitHub Marketplace](https://img.shields.io/badge/GitHub-Marketplace-blue?logo=github)](https://github.com/jesuscmartinez/lets-threat-model-core-action)
 [![License](https://img.shields.io/github/license/jesuscmartinez/lets-threat-model-demo)](LICENSE) -->
 
-Generate **Threat Models** from YAML configurations using the `lets-threat-model-core` Docker container.  
-This GitHub Action helps automate the process of generating Markdown and optional JSON reports for your applications' threat models.
+AI-driven threat modeling using the lets-threat-model-core Docker container. This action produces Markdown, optional JSON, and SARIF reports—seamlessly integrating security assessments into your CI/CD pipeline and supporting GitHub Code Scanning.
 
 ---
 

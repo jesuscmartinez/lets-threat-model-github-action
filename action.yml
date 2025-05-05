@@ -1,6 +1,6 @@
 name: "Lets Threat Model"
-description: "Generate threat models from YAML configs using the lets-threat-model-core container"
-author: "Jesus C Martinez"
+description: "AI-driven threat modeling using the lets-threat-model-core Docker container. This action produces Markdown, optional JSON, and SARIF reports—seamlessly integrating security assessments into your CI/CD pipeline and supporting GitHub Code Scanning."
+author: "Jesus Martinez"
 branding:
   icon: "shield"
   color: "blue"
