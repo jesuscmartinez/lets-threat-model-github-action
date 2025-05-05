@@ -1,5 +1,5 @@
 name: "Lets Threat Model"
-description: "AI-driven threat modeling using the lets-threat-model-core Docker container. This action produces Markdown, optional JSON, and SARIF reports—seamlessly integrating security assessments into your CI/CD pipeline and supporting GitHub Code Scanning."
+description: "AI-driven threat modeling that outputs Markdown, JSON, and SARIF for seamless CI/CD and GitHub Code Scanning."
 author: "Jesus Martinez"
 branding:
   icon: "shield"
